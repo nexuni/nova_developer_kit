@@ -30,8 +30,8 @@ def generate_launch_description() -> LaunchDescription:
 
     actions.append(
         lu.include(
-            'nova_developer_kit_description',
-            'launch/nova_developer_kit_description.launch.py',
+            'nxamr_description',
+            'launch/nxamr_description.launch.py',
             condition=UnlessCondition(is_rosbag),
         ))
     actions.append(

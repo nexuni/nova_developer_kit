@@ -47,15 +47,15 @@ def generate_launch_description() -> LaunchDescription:
     enable_people_segmentation = lu.dict_values_contain_substring(perceptor_configuration,
                                                                   'nvblox_people')
 
-    # actions.append(
-    #     lu.include(
-    #         'nova_developer_kit_bringup',
-    #         'launch/include/hardware_abstraction_layer_include.launch.py',
-    #         launch_arguments={
-    #             'enabled_stereo_cameras': enabled_stereo_cameras_drivers,
-    #             'enable_people_segmentation': enable_people_segmentation,
-    #         },
-    #     ))
+    actions.append(
+        lu.include(
+            'nova_developer_kit_bringup',
+            'launch/include/hardware_abstraction_layer_include.launch.py',
+            launch_arguments={
+                'enabled_stereo_cameras': enabled_stereo_cameras_drivers,
+                'enable_people_segmentation': enable_people_segmentation,
+            },
+        ))
 
     actions.append(
         lu.include(

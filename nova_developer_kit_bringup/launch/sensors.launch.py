@@ -25,9 +25,9 @@ def generate_launch_description() -> LaunchDescription:
     args.add_arg('mode', 'real_world', choices=['real_world', 'rosbag'], cli=True)
     args.add_arg('rosbag', 'None', cli=True)
     args.add_arg('enabled_stereo_cameras',
-                 'front_stereo_camera,left_stereo_camera,right_stereo_camera',
+                 'front_stereo_camera',
                  cli=True)
-    args.add_arg('enabled_fisheye_cameras', 'front_fisheye_camera', cli=True)
+    args.add_arg('enabled_fisheye_cameras', '', cli=True)
     args.add_arg('type_negotiation_duration_s', 5, cli=True)
 
     is_real_world = lu.is_equal(args.mode, 'real_world')
@@ -39,12 +39,12 @@ def generate_launch_description() -> LaunchDescription:
         lu.include('nova_developer_kit_bringup',
                    'launch/include/hardware_abstraction_layer_include.launch.py'))
 
-    actions.append(
-        lu.include(
-            'isaac_ros_perceptor_bringup',
-            'launch/tools/visualization.launch.py',
-            launch_arguments={'use_foxglove_whitelist': False},
-        ))
+    # actions.append(
+    #     lu.include(
+    #         'isaac_ros_perceptor_bringup',
+    #         'launch/tools/visualization.launch.py',
+    #         launch_arguments={'use_foxglove_whitelist': False},
+    #     ))
 
     actions.append(lu.component_container('nova_container'))
 

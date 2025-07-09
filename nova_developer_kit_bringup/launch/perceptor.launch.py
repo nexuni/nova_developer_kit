@@ -28,7 +28,7 @@ def generate_launch_description() -> LaunchDescription:
     args.add_arg('enabled_fisheye_cameras', '', cli=True)
     args.add_arg('enable_cuvslam', True, cli=True)
     args.add_arg('stereo_camera_configuration',
-                 default='front_left_right_configuration',
+                 default='front_people_configuration',
                  choices=[
                      'front_configuration',
                      'front_people_configuration',
@@ -78,15 +78,31 @@ def generate_launch_description() -> LaunchDescription:
                 'is_sim': is_sim,
             }))
 
-    actions.append(
-        lu.include(
-            'isaac_ros_perceptor_bringup',
-            'launch/tools/visualization.launch.py',
-            launch_arguments={
-                'use_foxglove_whitelist': args.use_foxglove_whitelist,
-            },
-        ))
+    # actions.append(
+    #     lu.include(
+    #         'isaac_ros_perceptor_bringup',
+    #         'launch/tools/visualization.launch.py',
+    #         launch_arguments={
+    #             'use_foxglove_whitelist': args.use_foxglove_whitelist,
+    #         },
+    #     ))
+
+    # actions.append(
+    #     lu.include('nxamr_navigation', 'launch/person_tracker.launch.py'))
 
     actions.append(lu.component_container('nova_container'))
+
+    # Add FPS measurement node to the container
+    # fps_measurement_node = lu.ComposableNode(
+    #     name='fps_measurement_node',
+    #     package='nxamr_navigation',
+    #     plugin='nxamr_navigation::FPSMeasurementNode',
+    #     parameters=[
+    #         # Add any parameters if needed in the future
+    #     ],
+    #     extra_arguments=[{'use_intra_process_comms': True}]
+    # )
+    
+    # actions.append(lu.load_composable_nodes('nova_container', [fps_measurement_node]))
 
     return LaunchDescription(actions)
